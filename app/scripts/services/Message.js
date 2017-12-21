@@ -1,4 +1,4 @@
-(function)() {
+(function() {
   function Message($firebaseArray) {
     var Message = {};
 
@@ -6,8 +6,7 @@
     var messages = $firebaseArray(ref);
 
     Message.getByRoomId = function (roomId) {
-      return $firebaseArra(ref.orderByChild('roomId').equalTo(roomId));
-
+      return $firebaseArray(ref.orderByChild('roomId').equalTo(roomId));
     }
 
     return Message;
@@ -18,4 +17,4 @@
   .module('brookeChat')
   .factory('Message', ['$firebaseArray', Message]);
 
-})();a
+})();
