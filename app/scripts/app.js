@@ -14,6 +14,6 @@
   }
 
   angular
-  .module('brookeChat', ['ui.router','firebase'])
+  .module('brookeChat', ['ui.router', 'firebase', 'ui.bootstrap'])
   .config(config);
 })();
