@@ -11,5 +11,5 @@
 
     angular
         .module('brookeChat')
-        .controller('ModalInstanceCtrl', ['$uibModalInstance', ModalInstanceCtrl]);
+        .controller('ModalInstanceCtrl', ['$uibModalInstance', '$cookies', ModalInstanceCtrl]);
 })();

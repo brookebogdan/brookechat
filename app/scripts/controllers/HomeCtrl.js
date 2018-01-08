@@ -1,18 +1,34 @@
 (function() {
-  function HomeCtrl(Room, Message, $uibModal) {
-    var home = this;
-    home.rooms = Room.all;
-    home.currentRoom = null;
+  function HomeCtrl(Room, Message, $uibModal, $cookies) {
+    var Home = {};
 
-    home.setCurrentRoom = function (room) {
-      home.currentRoom = room;
-      home.messages = Message.getByRoomId(home.currentRoom.$id);
-      console.log("Messages: " + messages);
+    Home.rooms = Room.all;
+    // Home.currentRoom = null;
+    Home.currentUser = $cookies.get('brookeChatCurrentUser');
+
+    Home.addRoom = function() {
+      $uibModal.open({
+        templateUrl: '/templates/modal.html',
+        size: 'sm',
+        controller: 'ModalCtrl as modal'
+      });
     }
 
+    Home.setCurrentRoom = function (room) {
+      Home.currentRoom = room;
+      Home.messages = Message.getByRoomId(Home.currentRoom.$id);
+    }
+
+    Home.sendMessage = function () {
+      Home.newMessage.roomID = Home.currentRoom.$id;
+      Home.newMessage.username = Home.currentUser;
+      Message.send(Home.newMessage);
+    }
+
+    return Home;
   }
 
   angular
   .module('brookeChat')
-  .controller('HomeCtrl', ['Room', 'Message', '$uibModal', HomeCtrl]);
-})()
+  .controller('HomeCtrl', ['Room', 'Message', '$uibModal', '$cookies', HomeCtrl]);
+})();

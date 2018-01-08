@@ -1,22 +1,22 @@
 (function() {
-  function ModalCtrl(Room, $uibModal) {
-    this.open = function() {
-      var modalInstance = $uibModal.open({
-        templateUrl : '/templates/modal.html',
-        controller: 'ModalInstanceCtrl',
-        controllerAs: 'modal'
-      });
+    function ModalCtrl(Room, $uibModalInstance, $cookies) {
+        var modal = this;
+        modal.cancel = function () {
+            $uibModalInstance.dismiss();
+        };
 
-      modalInstance.result.then(function(name) {
-        this.room = name;
-        Room.add(this.room);
-      }, function() {
-        $log.info('Modal dismissed at ' + new Date());
-      });
-    };
-  }
+        modal.createRoom = function () {
+            Room.add(modal.newRoom);
+            $uibModalInstance.close();
+        };
 
-  angular
-    .module('brookeChat')
-    .controller('ModalCtrl', ['Room', '$uibModal', ModalCtrl]);
+        modal.createUsername = function () {
+            $cookies.put('brookeChatCurrentUser', modal.username);
+            $uibModalInstance.close();
+        }
+    }
+
+    angular
+        .module('brookeChat')
+        .controller('ModalCtrl', ['Room', '$uibModalInstance', '$cookies', ModalCtrl]);
 })();
