@@ -3,7 +3,7 @@
     var Home = {};
 
     Home.rooms = Room.all;
-    // Home.currentRoom = null;
+    Home.currentRoom = null;
     Home.currentUser = $cookies.get('brookeChatCurrentUser');
 
     Home.addRoom = function() {
@@ -15,12 +15,13 @@
     }
 
     Home.setCurrentRoom = function (room) {
+
       Home.currentRoom = room;
       Home.messages = Message.getByRoomId(Home.currentRoom.$id);
     }
 
     Home.sendMessage = function () {
-      Home.newMessage.roomID = Home.currentRoom.$id;
+      Home.newMessage.roomId = Home.currentRoom.$id;
       Home.newMessage.username = Home.currentUser;
       Message.send(Home.newMessage);
     }
